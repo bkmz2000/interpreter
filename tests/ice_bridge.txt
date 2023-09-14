@@ -1,0 +1,81 @@
+{
+    int up ;
+    int W ;
+    int I ;
+
+    W = 87 ;
+    up = 1 ;
+    I = 73 ;
+
+    print_map ( ) ;
+    while ( rover . dir != 1 ) {
+        rover . turn_right ( ) ;
+    }
+
+
+    while ( rover . in_front == 32 ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_right ( ) ;
+
+    while ( rover . in_front == 32 ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+
+    while ( rover . in_front != W && rover . x > 1 ) {
+        rover . turn_left ( ) ;
+        rover . move ( ) ;
+        rover . turn_right ( ) ;
+    }
+
+    if ( rover . in_front == W ) {
+        rover . freeze ( ) ;
+        rover . move ( ) ;
+
+        if ( rover . under == I )
+            rover . move ( ) ;
+
+        rover . turn_right ( ) ;
+        rover . turn_right ( ) ;
+        rover . melt ( ) ;
+
+        rover . print_info ( ) ;
+        print ( 1553 ) ;
+    }
+    else {
+        rover . turn_right ( ) ;
+        rover . turn_right ( ) ;
+
+        while ( rover . in_front == 32 ) {
+            rover . move ( ) ;
+        }
+
+        while ( rover . in_front != W ) {
+            rover . turn_left ( ) ;
+            rover . move ( ) ;
+            rover . turn_right ( ) ;
+        }
+
+        rover . freeze ( ) ;
+        rover . move ( ) ;
+
+        if ( rover . under == I )
+            rover . move ( ) ;
+
+        rover . turn_right ( ) ;
+        rover . turn_right ( ) ;
+        rover . melt ( ) ;
+
+        rover . print_info ( ) ;
+        print ( 1553 ) ;
+
+        rover . print_info ( ) ;
+    }
+    rover . print_info ( ) ;
+
+    print_map ( ) ;
+}

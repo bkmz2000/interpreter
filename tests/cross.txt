@@ -1,0 +1,117 @@
+{
+    int up ;
+    int empty ;
+    int block ;
+    int width ;
+    int height ;
+
+    up = 1 ;
+    empty = 32 ;
+    block = 88 ;
+
+    width = 1 ;
+    height = 1 ;
+
+
+    rover . print_info ( ) ;
+    while ( rover . dir != up ) {
+        rover . turn_left ( ) ;
+    }
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_right ( ) ;
+    rover . turn_right ( ) ;
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+        width = width + 1 ;
+    }
+
+    rover . turn_right ( ) ;
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+        height = height + 1 ;
+    }
+
+    while ( rover . dir != up ) {
+        rover . turn_left ( ) ;
+    }
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+
+    while ( rover . in_front == empty ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+    rover . turn_left ( ) ;
+
+    while ( rover . x < ( width - 2 ) / 2 ) {
+        rover . move ( ) ;
+    }
+
+    while ( rover . y > 2 ) {
+        rover . turn_right ( ) ;
+        rover . move ( ) ;
+
+        rover . turn_left ( ) ;
+        rover . build ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+    while ( rover . y < ( height - 2 ) / 2 ) {
+        rover . move ( ) ;
+    }
+
+    while ( rover . x > 2 ) {
+        rover . build ( ) ;
+        rover . turn_left (  ) ;
+        rover . move ( ) ;
+        rover . turn_right ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+    rover . turn_left ( ) ;
+
+    while ( rover . in_front  == empty ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+    while ( rover . x < ( width - 2 ) / 2 + 2 ) {
+        rover . move ( ) ;
+    }
+
+    rover . turn_left ( ) ;
+
+    while ( rover . y < ( height - 2 ) / 2 ) {
+        rover . move ( ) ;
+    }
+
+    while ( rover . x < width - 1 ) {
+        rover . build ( ) ;
+        rover . turn_right ( ) ;
+        rover . move ( ) ;
+        rover . turn_left (  ) ;
+    }
+
+    print_map  ( ) ;
+}

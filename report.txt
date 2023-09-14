@@ -1,0 +1,60 @@
+I took parser and ast from the previous assignment, 
+and added methods ``check``, ``check_type``, ``execute`` to all ast nodes. 
+``check`` recursively checks types and scopes for children, ``check_type`` checks types and scopes
+for this specific node, and ``execute`` calculates the result of execution and saves it in ``self.result``.
+
+At first, I used simple ``int``'s to represent types, then I switched to ``NodeType`` enum for readability. 
+Enum was not convenient enough for storing Array types, so I rewrote it to its current state. It does not do
+anything special, but there are many small and useful methods to convert types from one representation to another.
+
+``check`` and ``check_types`` pass the ``ctx`` dictionary, wich holds names to types mapings. 
+
+``execute`` is prety straightforward, but quite wordy for ``Stmt`` and factor. Note that ``execute`` also recursively
+passes ``ctx``, but this is another mapping: from names to values. ``execute`` does not do any type checks, relying on 
+``check`` results. To control robot(s), ``execute`` uses an instance of ``RobotManager`` class, which is just a list of robots
+with some extra methods to access each one's functions.
+
+Implementing these methods inside AstNode subclasses is fine, but it could be a good idea to separate three different entities:
+Ast, scope cheker and type checker. The latter two could be implemented as tree walkers.
+
+robots.py is super straightforward and so is the main.
+
+For the grammar, I've just added one quasi-keyword ``rover`` and quasi-operator ``.``, but that is a purely aesthetic choice:
+they do not do anything special and are not used outside of controlling robots. I've also added two built-in functions:
+``print`` and ``print_map``.
+
+I've added four features and two blocks: water and ice. Rover can build and explode an obstacle in front of it, melt ice and freeze water.
+A rover can not stand on a water block but can stand on the ice.
+
+I've designed three tests (see below), my idea was to use all of the available structures and keywords. Keep in mind that all 
+programs work with random initial positions.
+	1) cross.txt expects the world to be an empty rectangular room surrounded by walls and draws a cross of structures inside. 
+	It does work regardless of room size, but it looks better if both width and height are odd;
+	2) ice_bridge.txt expects the world to be an empty rectangular room surrounded by walls, with an additional wall inside. One 
+	of the wall blocks is replaced by a water block (see. pics below). The rover finds the water block, freezes it, crosses the bridge and then melts it back;
+
+		XXXXXXX                XXXXXXX
+		X     X                X     X
+		X     X                X     X
+		X     X                X     X
+		X     X                X     X
+		X     X                X     X
+		X     X                X   ↓ X
+		XXXXWXX                XXXXWXX
+		X     X                X     X
+		X     X                X     X
+		X↑    X                X     X
+		X     X                X     X
+		X     X                X     X
+		X     X                X     X
+		XXXXXXX                XXXXXXX
+	    (pic. 1)			   (pic. 2)
+
+	3) number_cruncher.py calculate a factorial of 1000.
+
+Running is simple:
+	1) First you run rover.py without any argument. It will print something like 
+	Rover started, id=3213066
+	2) Then you run send.py <src> <id>, where <src> is the path to you code and <id> is the code from the rover.py output.
+
+Note that the folder should contain a map.txt file, otherwise rover.py will fail.  
